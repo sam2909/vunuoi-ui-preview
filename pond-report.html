@@ -80,7 +80,7 @@ buttons.forEach((el,i)=>el.addEventListener('click',()=>{
  const isAge=mode==='age';
  $('#calendarFields').hidden=isAge;$('#ageFields').hidden=!isAge;
  from.disabled=isAge;to.disabled=isAge;$('#customAge').disabled=!isAge;$('#customAgeFrom').disabled=!isAge;
- from.value=start;to.value=end;$('#customAgeFrom').value=Math.max(0,ageOf(start));$('#customAge').value=Math.max(0,ageOf(end));
+ from.value=start;to.value=end;$('#customAgeFrom').value='';$('#customAgeFrom').placeholder=String(Math.max(0,ageOf(start)));$('#customAge').value='';$('#customAge').placeholder=String(Math.max(0,ageOf(end)));
  $('#dateError').textContent='';form.hidden=false;el.setAttribute('aria-expanded','true');
  (isAge?$('#customAgeFrom'):from).focus();return
  }
