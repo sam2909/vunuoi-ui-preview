@@ -41,8 +41,8 @@
 <nav class="bottom"><button class="on" data-id="home"><span class="ico">⌂</span>Hôm nay</button><button data-id="input"><span class="ico">＋</span>Nhập</button><button data-id="reports"><span class="ico">▤</span>Báo cáo</button><button data-id="seasons"><span class="ico">◷</span>Mùa vụ</button><button data-id="tools"><span class="ico">◇</span>Công cụ</button></nav>
 </div>
 <script>
-function go(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('on',x.id===id));document.querySelectorAll('.bottom button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));scrollTo(0,0)}
-document.querySelectorAll('.bottom button').forEach(x=>x.onclick=()=>go(x.dataset.id));
+function go(id,syncHash=true){if(!document.getElementById(id))id='home';document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('on',x.id===id));document.querySelectorAll('.bottom button').forEach(x=>x.classList.toggle('on',x.dataset.id===id));if(syncHash)history.replaceState(null,'','#'+id);scrollTo(0,0)}
+document.querySelectorAll('.bottom button').forEach(x=>x.onclick=()=>go(x.dataset.id));go(location.hash.slice(1)||'home',false);window.addEventListener('hashchange',()=>go(location.hash.slice(1)||'home',false));
 function showPane(id){document.querySelectorAll('.pane').forEach(x=>x.classList.toggle('on',x.id===id));document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x.dataset.pane===id))}
 function openInput(id){go('input');showPane(id)}
 </script>
