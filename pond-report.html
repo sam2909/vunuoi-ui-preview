@@ -7,18 +7,18 @@
 document.querySelectorAll('.tabs button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===button));document.querySelectorAll('.panel').forEach(panel=>panel.classList.toggle('on',panel.id===button.dataset.panel));history.replaceState(null,'','#'+button.dataset.panel)}));const initial=location.hash.slice(1);if(['growth','feed','environment'].includes(initial))document.querySelector('.tabs button[data-panel="'+initial+'"]').click();
 document.querySelectorAll('.metricmodes button').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('.metricmodes button').forEach(x=>x.classList.toggle('on',x===button));document.querySelectorAll('.chartview').forEach(chart=>chart.classList.toggle('on',chart.id===button.dataset.chart))}));</script><script>
 (()=>{
-const $=s=>document.querySelector(s), $=s=>Array.from(document.querySelectorAll(s));
+const $=s=>document.querySelector(s), all=s=>Array.from(document.querySelectorAll(s));
 const fmt=(n,d=2)=>Number(n).toLocaleString('vi-VN',{maximumFractionDigits:d});
 const iso=s=>'2026-'+s.slice(3,5)+'-'+s.slice(0,2);
 const short=s=>s.slice(8,10)+'/'+s.slice(5,7);
 const day=s=>Date.parse(s+'T00:00:00Z')/86400000;
 const date=n=>new Date(n*86400000).toISOString().slice(0,10);
-const rows=$('.growthrow').map(el=>({el,date:iso(el.querySelector('time').textContent),size:parseFloat(el.querySelector('.primary b').textContent.replace(',','.')),weight:parseFloat(el.querySelector('.weight b').textContent.replace(',','.'))}));
-const env=$('#environment .record').map(el=>({el,date:iso(el.querySelector('time').textContent)}));
-const feeds=$('.bar').map((el,i)=>({el,date:'2026-09-'+String(i+5).padStart(2,'0'),kg:parseFloat(el.dataset.v.replace(',','.'))}));
+const rows=all('.growthrow').map(el=>({el,date:iso(el.querySelector('time').textContent),size:parseFloat(el.querySelector('.primary b').textContent.replace(',','.')),weight:parseFloat(el.querySelector('.weight b').textContent.replace(',','.'))}));
+const env=all('#environment .record').map(el=>({el,date:iso(el.querySelector('time').textContent)}));
+const feeds=all('.bar').map((el,i)=>({el,date:'2026-09-'+String(i+5).padStart(2,'0'),kg:parseFloat(el.dataset.v.replace(',','.'))}));
 const empty='<p class="rangeempty">Không có dữ liệu trong khoảng đã chọn.</p>';
 const latest='2026-09-11'; // Clock of this fixed-data preview, not the device clock.
-const buttons=$('.range button'),form=$('#dateFilter'),from=$('#fromDate'),to=$('#toDate');
+const buttons=all('.range button'),form=$('#dateFilter'),from=$('#fromDate'),to=$('#toDate');
 let selected=1, start=date(day(latest)-29),end=latest;
 function filter(list,a,b){return list.filter(x=>x.date>=a&&x.date<=b)}
 function showRows(list,a,b,parent){
@@ -26,7 +26,7 @@ function showRows(list,a,b,parent){
  parent.querySelectorAll('.rangeempty').forEach(x=>x.remove());
  if(!result.length)parent.insertAdjacentHTML('beforeend',empty);return result;
 }
-function summary(panel,values){$(panel+' .sum').forEach((el,i)=>{el.querySelector('.label').textContent=values[i][0];el.querySelector('b').textContent=values[i][1];el.querySelector('small').textContent=values[i][2]})}
+function summary(panel,values){all(panel+' .sum').forEach((el,i)=>{el.querySelector('.label').textContent=values[i][0];el.querySelector('b').textContent=values[i][1];el.querySelector('small').textContent=values[i][2]})}
 function chart(id,key,items){
  const target=$('#'+id);if(!items.length){target.innerHTML=empty;return}
  const sorted=[...items].sort((a,b)=>a.date.localeCompare(b.date));
@@ -51,7 +51,7 @@ function apply(a,b,index){
  const card=bars.parentElement;card.querySelectorAll('.rangeempty').forEach(x=>x.remove());if(!f.length)bars.insertAdjacentHTML('afterend',empty);
  card.querySelector('h2').textContent='Thức ăn trong khoảng chọn';
  const total=f.reduce((s,x)=>s+x.kg,0);summary('#feed',[['TỔNG ĐÃ GHI',f.length?fmt(total)+' kg':'—','Trong khoảng chọn'],['NGÀY ĐÃ GHI',String(f.length),'Có bản ghi'],['NGÀY CHƯA CÓ DỮ LIỆU',String(day(b)-day(a)+1-f.length),'Không tự coi là không cho ăn']]);
- const cycle=$('#feed .card')[1];cycle.hidden=!(a<='2026-09-06'&&b>='2026-09-11');
+ const cycle=all('#feed .card')[1];cycle.hidden=!(a<='2026-09-06'&&b>='2026-09-11');
  form.hidden=true;buttons[2].setAttribute('aria-expanded','false');
 }
 buttons.forEach((el,i)=>el.addEventListener('click',()=>{
