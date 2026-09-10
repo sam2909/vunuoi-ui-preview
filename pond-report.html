@@ -16,7 +16,20 @@
 #dateError:empty{display:none}
 #dateFilter .datefields{margin-bottom:12px}
 @media(max-width:480px){#calendarFields{grid-template-columns:minmax(0,1fr);gap:10px}}
-</style></head><body><div class="app"><header class="top"><div class="topin"><nav class="crumbs"><button onclick="location.href='zone-detail.html'">Khu B</button><span>›</span><button onclick="location.href='pond-detail.html'">N302</button><span>›</span><strong>Báo cáo</strong></nav></div></header><main class="main"><div class="hero"><div class="eyebrow">AO N302 · MÙA 27</div><h1>Báo cáo trong ao</h1><p>Dữ liệu thực đo và bản ghi thức ăn của riêng N302.</p></div><div class="filtermodes" role="group" aria-label="Cách lọc thời gian"><button type="button" id="calendarMode" aria-pressed="true">Ngày lịch</button><button type="button" id="ageMode" aria-pressed="false">Ngày tuổi</button></div><div class="range" role="group" aria-label="Khoảng ngày"><button data-days="7" aria-label="7 ngày">7</button><button data-days="30" class="on" aria-label="30 ngày">30</button><button data-days="45" aria-label="45 ngày">45</button><button data-days="60" aria-label="60 ngày">60</button><button data-days="90" aria-label="90 ngày">90</button><button>Tùy chọn</button></div><form id="dateFilter" hidden><div class="datefields" id="calendarFields"><label>Từ ngày<input id="fromDate" type="date" required></label><label>Đến ngày<input id="toDate" type="date" required></label></div><div class="datefields" id="ageFields" hidden><label>Từ ngày tuổi<input id="customAgeFrom" type="number" min="0" max="3650" step="1" inputmode="numeric" required disabled></label><label>Đến ngày tuổi<input id="customAge" type="number" min="0" max="3650" step="1" inputmode="numeric" required disabled></label></div><p id="dateError" role="alert"></p><button type="button" id="cancelDates">Huỷ</button><button type="submit">Áp dụng</button></form><p id="rangeCaption" aria-live="polite"></p><div class="tabs"><button class="on" data-panel="growth">Tăng trưởng</button><button data-panel="feed">Thức ăn</button><button data-panel="environment">Môi trường</button></div>
+
+.calendar-nav{display:flex;align-items:center;justify-content:space-between;gap:8px}
+#dateFilter .calendar-nav button{margin:0;background:#eef2f4;color:#132235;font-size:24px;width:44px;padding:0}
+#calendarHint{font-size:13px;color:#526277;min-height:20px}
+.calendar-week,#calendarDays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px}
+.calendar-week span{text-align:center;color:#64748b;font-size:12px;padding:6px 0}
+#calendarDays{margin-bottom:14px}
+#dateFilter #calendarDays button{margin:0;min-width:0;width:100%;min-height:40px;padding:6px 0;border-radius:7px;background:transparent;color:#132235;font:14px system-ui}
+#dateFilter #calendarDays button.between{background:#e8f5f2;color:#0f766e}
+#dateFilter #calendarDays button.endpoint{background:#0f766e;color:#fff;font-weight:700}
+#dateFilter button:focus-visible{outline:2px solid #0f766e;outline-offset:2px}
+#dateFilter{max-width:440px}
+#dateFilter #nextAge{background:#e8f5f2;color:#0f766e}
+</style></head><body><div class="app"><header class="top"><div class="topin"><nav class="crumbs"><button onclick="location.href='zone-detail.html'">Khu B</button><span>›</span><button onclick="location.href='pond-detail.html'">N302</button><span>›</span><strong>Báo cáo</strong></nav></div></header><main class="main"><div class="hero"><div class="eyebrow">AO N302 · MÙA 27</div><h1>Báo cáo trong ao</h1><p>Dữ liệu thực đo và bản ghi thức ăn của riêng N302.</p></div><div class="filtermodes" role="group" aria-label="Cách lọc thời gian"><button type="button" id="calendarMode" aria-pressed="true">Ngày lịch</button><button type="button" id="ageMode" aria-pressed="false">Ngày tuổi</button></div><div class="range" role="group" aria-label="Khoảng ngày"><button data-days="7" aria-label="7 ngày">7</button><button data-days="30" class="on" aria-label="30 ngày">30</button><button data-days="45" aria-label="45 ngày">45</button><button data-days="60" aria-label="60 ngày">60</button><button data-days="90" aria-label="90 ngày">90</button><button>Tùy chọn</button></div><form id="dateFilter" hidden><div id="calendarFields"><input id="fromDate" type="hidden"><input id="toDate" type="hidden"><div class="calendar-nav"><button type="button" id="prevMonth" aria-label="Tháng trước">‹</button><strong id="calendarMonth"></strong><button type="button" id="nextMonth" aria-label="Tháng sau">›</button></div><p id="calendarHint" aria-live="polite"></p><div class="calendar-week" aria-hidden="true"><span>T2</span><span>T3</span><span>T4</span><span>T5</span><span>T6</span><span>T7</span><span>CN</span></div><div id="calendarDays" role="group" aria-label="Chọn ngày bắt đầu và kết thúc"></div></div><div class="datefields" id="ageFields" hidden><label>Từ ngày tuổi<input id="customAgeFrom" enterkeyhint="next" type="number" min="0" max="3650" step="1" inputmode="numeric" required disabled></label><label>Đến ngày tuổi<input id="customAge" enterkeyhint="done" type="number" min="0" max="3650" step="1" inputmode="numeric" required disabled></label></div><p id="dateError" role="alert"></p><button type="button" id="cancelDates">Huỷ</button><button type="button" id="nextAge" hidden>Tiếp →</button><button type="submit" id="applyDates">Áp dụng</button></form><p id="rangeCaption" aria-live="polite"></p><div class="tabs"><button class="on" data-panel="growth">Tăng trưởng</button><button data-panel="feed">Thức ăn</button><button data-panel="environment">Môi trường</button></div>
 <section class="panel on" id="growth"><div class="summary"><div class="sum"><span class="label">SIZE HIỆN TẠI</span><b>32,3</b><small>con/kg · ngày 92</small></div><div class="sum"><span class="label">TRỌNG LƯỢNG</span><b>30,94g</b><small>/con</small></div><div class="sum"><span class="label">TĂNG GẦN NHẤT</span><b>+0,32g</b><small>/con/ngày</small></div></div><div class="card"><div class="cardhead"><div><h2>Xu hướng tăng trưởng</h2><p>Mỗi điểm là một lần đo size thực tế</p></div></div><div class="metricmodes"><button class="on" data-chart="weightChart">Trọng lượng · g/con</button><button data-chart="sizeChart">Size · con/kg</button></div><div class="chart"><div class="chartview on" id="weightChart"><svg viewBox="0 0 360 260" role="img" aria-label="Xu hướng trọng lượng g trên con"><line class="grid" x1="38" y1="40" x2="338" y2="40"/><line class="grid" x1="38" y1="100" x2="338" y2="100"/><line class="grid" x1="38" y1="160" x2="338" y2="160"/><line class="grid" x1="38" y1="220" x2="338" y2="220"/><text class="axis" x="7" y="44">32g</text><text class="axis" x="7" y="104">28g</text><text class="axis" x="7" y="164">24g</text><text class="axis" x="7" y="224">20g</text><polyline class="line" points="45,197 140,158 235,103 330,73"/><circle class="point" cx="45" cy="197" r="5"/><circle class="point" cx="140" cy="158" r="5"/><circle class="point" cx="235" cy="103" r="5"/><circle class="point" cx="330" cy="73" r="5"/><text class="pointlabel" x="52" y="185">23,53</text><text class="pointlabel" x="140" y="144">26,11</text><text class="pointlabel" x="235" y="89">29,33</text><text class="pointlabel" x="322" y="59">30,94</text><text class="axis" x="32" y="247">31/08</text><text class="axis" x="125" y="247">03/09</text><text class="axis" x="220" y="247">06/09</text><text class="axis" x="315" y="247">11/09</text></svg></div><div class="chartview" id="sizeChart"><svg viewBox="0 0 360 260" role="img" aria-label="Xu hướng size con trên kg"><line class="grid" x1="38" y1="40" x2="338" y2="40"/><line class="grid" x1="38" y1="100" x2="338" y2="100"/><line class="grid" x1="38" y1="160" x2="338" y2="160"/><line class="grid" x1="38" y1="220" x2="338" y2="220"/><text class="axis" x="5" y="44">45</text><text class="axis" x="5" y="104">40</text><text class="axis" x="5" y="164">35</text><text class="axis" x="5" y="224">30</text><polyline class="line" points="45,70 140,120 235,171 330,193"/><circle class="point" cx="45" cy="70" r="5"/><circle class="point" cx="140" cy="120" r="5"/><circle class="point" cx="235" cy="171" r="5"/><circle class="point" cx="330" cy="193" r="5"/><text class="pointlabel" x="52" y="58">42,5</text><text class="pointlabel" x="140" y="106">38,3</text><text class="pointlabel" x="235" y="157">34,1</text><text class="pointlabel" x="322" y="181">32,3</text><text class="axis" x="32" y="247">31/08</text><text class="axis" x="125" y="247">03/09</text><text class="axis" x="220" y="247">06/09</text><text class="axis" x="315" y="247">11/09</text></svg></div></div><div class="note">Size con/kg giảm khi tôm lớn lên; trọng lượng g/con tăng. Chuyển chỉ số để xem đúng đơn vị, không dùng hai thang đo trên cùng một trục.</div></div><div class="card"><div class="cardhead"><div><h2>Các lần đo gần đây</h2><p>Mỗi lần so với lần đo ngay trước</p></div></div><div class="growthrecords"><div class="growthhead"><span>Lần đo</span><span>Size</span><span>Trọng lượng</span></div><div class="growthrow"><div class="growthdate"><time>11/09</time><small>Ngày nuôi 92</small></div><div class="growthmetric primary"><b>32,3 con/kg</b><small class="metricdelta">↓ 1,8 con/kg</small><small class="daily-rate">↓ 0,36 con/kg/ngày</small></div><div class="growthmetric weight"><b>30,94 g/con</b><small class="metricdelta">↑ 1,61 g/con</small><small class="daily-rate">↑ 0,32 g/con/ngày</small></div></div><div class="growthrow"><div class="growthdate"><time>06/09</time><small>Ngày nuôi 88</small></div><div class="growthmetric primary"><b>34,1 con/kg</b><small class="metricdelta">↓ 4,2 con/kg</small><small class="daily-rate">↓ 1,40 con/kg/ngày</small></div><div class="growthmetric weight"><b>29,33 g/con</b><small class="metricdelta">↑ 3,22 g/con</small><small class="daily-rate">↑ 1,07 g/con/ngày</small></div></div><div class="growthrow"><div class="growthdate"><time>03/09</time><small>Ngày nuôi 85</small></div><div class="growthmetric primary"><b>38,3 con/kg</b><small class="metricdelta">↓ 4,2 con/kg</small><small class="daily-rate">↓ 1,40 con/kg/ngày</small></div><div class="growthmetric weight"><b>26,11 g/con</b><small class="metricdelta">↑ 2,58 g/con</small><small class="daily-rate">↑ 0,86 g/con/ngày</small></div></div><div class="growthrow"><div class="growthdate"><time>31/08</time><small>Ngày nuôi 82</small></div><div class="growthmetric primary"><b>42,5 con/kg</b></div><div class="growthmetric weight"><b>23,53 g/con</b></div></div></div></div></section>
 <section class="panel" id="feed"><div class="summary"><div class="sum"><span class="label">HÔM QUA</span><b>18,5 kg</b><small>tổng các loại</small></div><div class="sum"><span class="label">7 NGÀY</span><b>126,5 kg</b><small>đã ghi đủ</small></div><div class="sum"><span class="label">30 NGÀY</span><b>486 kg</b><small>2 ngày không cho ăn</small></div></div><div class="card"><div class="cardhead"><div><h2>Thức ăn 7 ngày gần nhất</h2><p>kg/ngày · tổng các loại cám</p></div></div><div class="bars"><i class="bar" style="height:68%" data-v="17,0" data-d="05"></i><i class="bar" style="height:71%" data-v="17,8" data-d="06"></i><i class="bar" style="height:72%" data-v="18,0" data-d="07"></i><i class="bar" style="height:73%" data-v="18,2" data-d="08"></i><i class="bar" style="height:74%" data-v="18,5" data-d="09"></i><i class="bar" style="height:74%" data-v="18,5" data-d="10"></i><i class="bar" style="height:74%" data-v="18,5" data-d="11/09"></i></div><div class="note">Không dùng lượng thức ăn riêng lẻ để kết luận hiệu quả. Xem cùng chu kỳ tăng trọng và dữ liệu sinh khối.</div></div><div class="card"><div class="cardhead"><div><h2>Chu kỳ gần nhất</h2><p>06/09 → 11/09 · đã khép bằng size thực đo</p></div></div><div class="records"><div class="record"><time>5 ngày</time><b>Thức ăn</b><span>90,7 kg</span></div><div class="record"><time>Hai lần đo</time><b>Tăng trọng</b><span>+1,62 g/con</span></div></div><div class="note">Chưa gọi là FCR vì chưa có đủ sinh khối và số lượng tôm trong chu kỳ.</div></div></section>
 <section class="panel" id="environment"><div class="summary"><div class="sum"><span class="label">pH GẦN NHẤT</span><b>7,8</b><small>10/09 · 06:45</small></div><div class="sum"><span class="label">DO</span><b>5,2</b><small>mg/L</small></div><div class="sum"><span class="label">NHIỆT ĐỘ</span><b>29,4°</b><small>độ mặn 12‰</small></div></div><div class="card"><div class="cardhead"><div><h2>Lịch sử đo môi trường</h2><p>Chỉ số nào không đo sẽ để trống, không tự điền</p></div></div><div class="records"><div class="record"><time>10/09 · 06:45</time><b>pH 7,8 · DO 5,2</b><span>29,4° · 12‰</span></div><div class="record"><time>09/09 · 06:40</time><b>pH 7,9 · DO 5,4</b><span>29,1° · 12‰</span></div><div class="record"><time>08/09 · 06:50</time><b>pH 7,7 · DO 5,1</b><span>28,8° · 11‰</span></div><div class="record"><time>07/09 · 06:42</time><b>pH 7,8 · DO 5,3</b><span>29,0° · 11‰</span></div></div><div class="note">Chưa gắn đánh giá tốt/xấu khi farm chưa cấu hình ngưỡng cho từng thông số.</div></div></section></main><nav class="bottom"><button onclick="location.href='index.html#home'"><span class="ico">⌂</span>Hôm nay</button><button onclick="location.href='index.html#input'"><span class="ico">＋</span>Nhập</button><button class="on" onclick="location.href='index.html#reports'"><span class="ico">▤</span>Báo cáo</button><button onclick="location.href='index.html#seasons'"><span class="ico">◷</span>Mùa vụ</button><button onclick="location.href='index.html#tools'"><span class="ico">◇</span>Công cụ</button></nav></div><script>
@@ -82,7 +95,11 @@ buttons.forEach((el,i)=>el.addEventListener('click',()=>{
  from.disabled=isAge;to.disabled=isAge;$('#customAge').disabled=!isAge;$('#customAgeFrom').disabled=!isAge;
  from.value=start;to.value=end;$('#customAgeFrom').value='';$('#customAgeFrom').placeholder=String(Math.max(0,ageOf(start)));$('#customAge').value='';$('#customAge').placeholder=String(Math.max(0,ageOf(end)));
  $('#dateError').textContent='';form.hidden=false;el.setAttribute('aria-expanded','true');
- (isAge?$('#customAgeFrom'):from).focus();return
+ $('#nextAge').hidden=!isAge;
+ if(isAge){$('#customAgeFrom').focus()}else{
+ from.value='';to.value='';calendarCursor=end.slice(0,7);renderCalendar();
+ $('#calendarDays button').focus();
+ }return
  }
  applyPreset(i);
 }));
@@ -109,5 +126,51 @@ function switchMode(next){
 }
 $('#calendarMode').addEventListener('click',()=>switchMode('calendar'));
 $('#ageMode').addEventListener('click',()=>switchMode('age'));
+
+let calendarCursor=latest.slice(0,7);
+function renderCalendar(){
+ const [year,month]=calendarCursor.split('-').map(Number);
+ $('#calendarMonth').textContent='Tháng '+month+' / '+year;
+ $('#calendarHint').textContent=!from.value?'Chọn ngày bắt đầu':!to.value?'Từ '+short(from.value)+' · Chọn ngày kết thúc':short(from.value)+' → '+short(to.value);
+ const offset=(new Date(Date.UTC(year,month-1,1)).getUTCDay()+6)%7;
+ const count=new Date(Date.UTC(year,month,0)).getUTCDate();
+ const grid=$('#calendarDays');grid.replaceChildren();
+ for(let i=0;i<offset;i++){grid.append(document.createElement('span'))}
+ for(let n=1;n<=count;n++){
+ const value=calendarCursor+'-'+String(n).padStart(2,'0'),b=document.createElement('button');
+ b.type='button';b.textContent=n;b.dataset.date=value;b.setAttribute('aria-label',n+'/'+month+'/'+year);
+ const endpoint=value===from.value||value===to.value;
+ b.classList.toggle('endpoint',endpoint);b.setAttribute('aria-pressed',String(endpoint));
+ b.classList.toggle('between',Boolean(from.value&&to.value&&value>from.value&&value<to.value));
+ b.addEventListener('click',()=>{
+  if(!from.value||to.value){from.value=value;to.value=''}
+  else if(value<from.value){to.value=from.value;from.value=value}
+  else to.value=value;
+  $('#dateError').textContent='';renderCalendar();
+  $('#calendarDays button[data-date="'+value+'"]').focus();
+ });
+ grid.append(b);
+ }
+}
+function moveMonth(delta){
+ const [y,m]=calendarCursor.split('-').map(Number);
+ calendarCursor=new Date(Date.UTC(y,m-1+delta,1)).toISOString().slice(0,7);renderCalendar();
+}
+$('#prevMonth').addEventListener('click',()=>moveMonth(-1));
+$('#nextMonth').addEventListener('click',()=>moveMonth(1));
+function nextAge(){
+ const first=$('#customAgeFrom');
+ if(!first.value||!first.checkValidity()){first.reportValidity();return}
+ $('#customAge').focus();
+}
+$('#nextAge').addEventListener('pointerdown',event=>{event.preventDefault();nextAge()});
+$('#nextAge').addEventListener('click',nextAge);
+$('#customAgeFrom').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();nextAge()}
+});
+$('#customAge').addEventListener('keydown',event=>{
+ if(event.key==='Enter'){event.preventDefault();form.requestSubmit()}
+});
+
 apply(start,end,selected);
 })();</script></body></html>
