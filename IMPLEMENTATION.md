@@ -133,7 +133,7 @@ Backend should decide these states from known data/rules. Frontend should render
 
 ## 6. Pond detail navigation
 
-### TODO NEXT
+### DECIDED DIRECTION
 
 Pond cards should be clickable.
 
@@ -141,15 +141,61 @@ Example:
 
 `N003 card -> Pond detail N003`
 
-The pond detail page will eventually organize:
+Pond Detail is an operating view for one pond. Its hierarchy should answer:
 
-- growth
-- feed
-- environment
-- history
-- notes/tasks relevant to that pond
+1. What is the pond's current known state?
+2. Is there something that needs action now?
+3. How has growth changed between real measurements?
+4. What feed has been recorded around those measurement periods?
+5. What environmental values were last recorded?
+6. What recently happened in the pond?
 
-Do not add a top-level `Ao nuôi` navigation item simply to reach this page.
+Do not style ordinary factual information like CTAs. Current actionable work should be visually isolated from passive facts.
+
+### Growth measurement deltas
+
+### DECIDED
+
+For each real size/weight measurement after the first available measurement, derive and display comparison with the immediately previous real measurement:
+
+- elapsed days
+- change in `g/con`
+- change in `con/kg`
+- average daily gain over that interval
+
+Example:
+
+`03/09 -> 06/09`
+`26.11 -> 29.33 g/con`
+`38.3 -> 34.1 con/kg`
+`+3.22 g/con · giảm 4.2 con/kg · 3 ngày · +1.08 g/con/ngày`
+
+Do not compare against an arbitrary older measurement when a directly adjacent measurement exists.
+
+Do not interpret `con/kg` decreasing as a negative outcome. It generally corresponds to animals becoming larger, so wording/icons must avoid implying that the decrease itself is bad.
+
+### Feed-growth measurement intervals
+
+### DECIDED DIRECTION
+
+Feed-growth context should be organized around real size-measurement intervals rather than pretending every day has a complete efficiency result.
+
+After a size measurement, start an open interval conceptually:
+
+`latest size measurement -> next real size measurement`
+
+While the interval is still open, it may show deterministic facts such as:
+
+- interval start date
+- elapsed days
+- total feed recorded since that measurement
+- status such as `Đang chờ size mới`
+
+Do not manufacture a weight gain or efficiency result before the next real size measurement exists.
+
+When the next size measurement is saved, the interval can be closed and the UI may compare recorded feed with measured growth for that same interval.
+
+Do not calculate or label a value as FCR unless the production data model contains the required trustworthy biomass/survival/population inputs and the backend rule is explicitly defined.
 
 ## 7. Sổ hôm nay
 
@@ -362,6 +408,8 @@ Farm/Season/Zone/Pond creation and management belongs to season/farm management,
 - pond age calculation from stocking date
 - latest measurement selection
 - growth calculations/business rules
+- adjacent-measurement delta calculations
+- feed aggregation for measurement intervals
 - task generation/synchronization
 - recurring schedules
 - derived overdue rules
@@ -472,7 +520,7 @@ Avoid notifications pretending to know conditions that are not actually measured
 
 ### IMPORTANT
 
-Names and values in `index.html` are demo data only, including:
+Names and values in `index.html` and `pond-detail.html` are demo data only, including:
 
 - PewPewFarm
 - Mùa 27
@@ -481,6 +529,7 @@ Names and values in `index.html` are demo data only, including:
 - size values
 - age values
 - task times
+- feed totals used to demonstrate the interval UI
 
 Do not hardcode these into production.
 
@@ -489,7 +538,7 @@ Do not hardcode these into production.
 When asked to implement a prototype feature in the real VUNUOI source:
 
 1. Read this file.
-2. Read the relevant part of `index.html`.
+2. Read the relevant prototype HTML.
 3. Inspect existing production routes, controllers/services, models, DB schema, auth/permissions, API resources, frontend components, and tests.
 4. Map prototype concepts to existing domain names rather than creating duplicates.
 5. Identify migrations only if the existing schema genuinely lacks the required concept.
@@ -512,22 +561,21 @@ Use these labels when extending this file:
 
 ### TODO NEXT
 
-Design and implement the **Pond Detail** prototype, starting from clicking N302/N003 from homepage.
+Continue refining the **Pond Detail** operating flow, then move into the fast input flow with pond/task scope already preselected.
 
-The detail page should be designed before adding more homepage complexity.
+Current Pond Detail questions:
 
-Likely questions the pond detail should answer:
+1. Pond is at what age and current measured size?
+2. What changed between adjacent real measurements?
+3. Is there an action due now?
+4. How much feed has been recorded recently and since the latest size measurement?
+5. Is the current feed-growth interval still open or can it be evaluated using a new real measurement?
+6. What environmental measurements were recently recorded?
+7. What tasks/notes/history are associated with this pond?
+8. What deeper analysis belongs in Reports rather than this operating view?
 
-1. Pond is at what age and current size?
-2. Is growth ahead/behind its recent trend?
-3. How much feed has been used recently?
-4. What is the feed-growth relationship?
-5. What environmental measurements were recently recorded?
-6. What tasks/notes are associated with this pond?
-7. What changed over a selectable period?
-
-Do not turn the pond detail into a wall of cards. Prioritize operating decisions and recent trend context.
+Do not turn Pond Detail into a wall of cards. Prioritize current state, action, adjacent-measurement change, and recent factual context.
 
 ---
 
-Last updated: 2026-09-10
+Last updated: 2026-09-11
