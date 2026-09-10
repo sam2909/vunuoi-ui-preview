@@ -324,7 +324,23 @@ Important targets:
 - environment
 - size
 
-Feed should eventually support multi-pond and multi-day entry where practical.
+Feed should support multi-pond and multi-day entry where practical.
+
+### Feed backfill rules
+
+### DECIDED
+
+- A multi-day feed backfill form lists only dates that do not yet have a completed feed-state record.
+- A date with feed rows is complete and must not be listed as missing.
+- A date explicitly recorded as intentional no-feed is also complete and must not be listed as missing.
+- Blank dates remain missing.
+- Default to the 7 most recent missing dates; allow the user to request a smaller subset where useful.
+- Copying the previous displayed date must copy its complete state:
+  - feed rows, or
+  - intentional no-feed plus its reason.
+- Normal feed input is `kg/feeding × feeding count = daily total`. Daily total is derived, not a competing third source of truth.
+- Intentional no-feed is a day-level operating state, not a feed type.
+- Feed types have a managed lifecycle: add, edit, hide/reactivate, and delete only when never referenced. Referenced types should be hidden rather than hard-deleted.
 
 Task deep-links should open the relevant input type and preselect the correct scope.
 
