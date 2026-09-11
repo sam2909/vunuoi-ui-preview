@@ -595,3 +595,30 @@ Do not turn Pond Detail into a wall of cards. Prioritize current state, action, 
 ---
 
 Last updated: 2026-09-11
+
+
+## 23. Pond information and stock transfer
+
+### LOCKED
+
+- Pond Detail exposes a compact **Thông tin** action beside **Nhập**.
+- Pond information includes pond name, season, zone, stocking date, initial stock quantity, current estimated quantity, feed start date, area and status.
+- Editing season or zone changes the pond's management location while preserving its log.
+- Changing the original stocking date recalculates day age in history and reports.
+
+### LOCKED — transfer / split
+
+- Transfer is a separate flow from editing pond information.
+- User selects source pond, destination pond, transfer quantity, date and time.
+- Before confirmation, show source quantity before transfer, amount transferred, source remainder and destination receipt.
+- A partial transfer creates two pond quantities sharing one original stock source.
+- Destination shrimp keeps the original stocking date and day age.
+- Destination feed tracking begins on a selected date: transfer date, another date, or temporarily unknown.
+- Dates before the destination feed start date must not appear as missing feed records.
+- If feed start is unknown, missing feed days begin only after the user records that feeding has started.
+- The transfer event appears in both pond logs.
+- Confirmation must be reviewable before applying the stock movement.
+
+### PROTOTYPE ONLY
+
+Example quantities, pond destinations and dates are illustrative. Production logic requires durable stock lineage and validated quantities.
