@@ -622,3 +622,15 @@ Last updated: 2026-09-11
 ### PROTOTYPE ONLY
 
 Example quantities, pond destinations and dates are illustrative. Production logic requires durable stock lineage and validated quantities.
+
+
+## 24. Create pond
+
+### LOCKED
+
+- Zone Detail exposes **Tạo ao**.
+- Create pond supports three initial states: empty pond, new stocking, or destination for a transfer.
+- The destination selector in the transfer flow includes **Tạo ao mới**.
+- Creating from a transfer returns to that transfer and selects the new pond as its destination.
+- A newly created empty pond has no day age and does not accumulate missing feed dates.
+- A transfer destination inherits stock lineage only after the transfer is confirmed.
